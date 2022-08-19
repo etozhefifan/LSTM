@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 plt.style.use('fivethirtyeight')
 
+TRAINING_DAYS = 60
+
 
 def get_stock_data(ticker, current_date):
     return investpy.get_stock_historical_data(
@@ -41,19 +43,19 @@ def data_preparations(length_of_training_data):
     data_for_train = scaled_data[0:length_of_training_data]
     x_train = []
     y_train = []
-    for point in range(60, len(data_for_train)):
-        x_train.append(data_for_train[point-60:point])
+    for point in range(TRAINING_DAYS, len(data_for_train)):
+        x_train.append(data_for_train[point-TRAINING_DAYS:point])
         y_train.append(data_for_train[point])
     x_train, y_train = np.array(x_train), np.array(y_train)
     return x_train, y_train,
 
 
 def create_dataset(length_of_training_data, scaled_data, dataset) -> tuple:
-    test_data = scaled_data[length_of_training_data - 60:]
+    test_data = scaled_data[length_of_training_data - TRAINING_DAYS:]
     x_test = []
     y_test = dataset[length_of_training_data:]
-    for point in range(60, len(test_data)):
-        x_test.append(test_data[point-60:point])
+    for point in range(TRAINING_DAYS, len(test_data)):
+        x_test.append(test_data[point-TRAINING_DAYS:point])
     x_test = np.array(x_test)
     x_test = np.reshape(x_test, (
                                 x_test.shape[0],
@@ -94,7 +96,7 @@ if __name__ == '__main__':
     length_of_training_data = math.ceil(len(dataset) * .8)
     scaler = MinMaxScaler(feature_range=(0, 1))
     scaled_data = scaler.fit_transform(dataset)
-    x_train, y_train = data_preparations(length_of_training_data, dataset)
+    x_train, y_train = data_preparations(length_of_training_data)
     shape1, shape2 = x_train.shape[1], x_train.shape[2]
     x_train = np.reshape(x_train, (x_train.shape[0], shape1, shape2))
     model = Sequential()
