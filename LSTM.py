@@ -1,4 +1,5 @@
 # keras using tensorflow
+from msilib.schema import Error
 import investpy
 import math
 import numpy as np
@@ -13,12 +14,15 @@ TRAINING_DAYS = 60
 
 
 def get_stock_data(ticker, current_date):
-    return investpy.get_stock_historical_data(
-        stock=f'{ticker}',
-        country='United States',
-        from_date='01/01/2020',
-        to_date=current_date
-    )
+    try:
+        return investpy.get_stock_historical_data(
+            stock=f'{ticker}',
+            country='United States',
+            from_date='01/01/2020',
+            to_date=current_date
+        )
+    except RuntimeError:
+        raise RuntimeError('Please check that you enter a valid ticker')
 
 
 def build_basic_graph(stock):
@@ -89,6 +93,7 @@ def build_predictions_graph(length_of_training_data, predictions):
 
 if __name__ == '__main__':
     today = datetime.now().strftime('%d/%m/%Y')
+    print('Write down the ticker of stock to analyze:'),
     ticker = input()
     historical_data = get_stock_data(ticker, today)
     data = historical_data.filter(['Close'])
