@@ -1,4 +1,4 @@
-# kernas using tensorflow
+# keras using tensorflow
 import investpy
 import math
 import numpy as np
@@ -36,7 +36,7 @@ def build_neural_ntwrk(shape1, shape2, x_train, y_train, model) -> None:
     model.add(Dense(25))
     model.add(Dense(1))
     model.compile(optimizer='adam', loss='mean_squared_error')
-    model.fit(x_train, y_train, batch_size=1, epochs=10)
+    model.fit(x_train, y_train, batch_size=1, epochs=20)
 
 
 def data_preparations(length_of_training_data):
