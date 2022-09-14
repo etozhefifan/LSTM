@@ -1,5 +1,7 @@
 # LSTM stock prediction
+
 Pet-project created with the sole purpose of toying around with keras and sklearn.
+
 ---
 ## Dependencies:
 * investpy==1.0.8
