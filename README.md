@@ -1,4 +1,4 @@
-# LSTM stock prediction
+# LSTM stock analysis
 
 Pet-project created with the sole purpose of toying around with keras and sklearn.
 
