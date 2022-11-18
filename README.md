@@ -18,4 +18,4 @@ Pet-project created with the sole purpose of toying around with keras and sklear
 ```
 pip install -r requirements.txt
 ```
-Note: python >= 3.8 required due to the codependencies of investpy (numpy 1.23 and etc.)
+Note: python >= 3.8 required due to the codependencies of yfinance
