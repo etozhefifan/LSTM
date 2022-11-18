@@ -1,13 +1,12 @@
 # keras using tensorflow
-from msilib.schema import Error
-import investpy
+import yfinance
 import math
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 import matplotlib.pyplot as plt
-from datetime import datetime
+from datetime import datetime, date
 plt.style.use('fivethirtyeight')
 
 TRAINING_DAYS = 60
@@ -15,11 +14,9 @@ TRAINING_DAYS = 60
 
 def get_stock_data(ticker, current_date):
     try:
-        return investpy.get_stock_historical_data(
-            stock=f'{ticker}',
-            country='United States',
-            from_date='01/01/2020',
-            to_date=current_date
+        return yfinance.Ticker(f'{ticker}').history(
+            start='2021-01-01',
+            end=date.today(),
         )
     except RuntimeError:
         raise RuntimeError('Please check that you enter a valid ticker')
